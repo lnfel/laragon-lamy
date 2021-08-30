@@ -1,6 +1,6 @@
 @echo off
-setlocal enableDelayedExpansion
 
+setlocal enableDelayedExpansion
 :: https://stackoverflow.com/questions/2048509/how-to-echo-with-different-colors-in-the-windows-command-line
 :: https://stackoverflow.com/a/38617204
 :: https://gist.githubusercontent.com/mlocati/fdabcaeb8071d5c75a2d51712db24011/raw/b710612d6320df7e146508094e84b92b34c77d48/win10colors.cmd
@@ -63,6 +63,7 @@ REM echo ^<ESC^>[7;31m                   [7;31minverse red foreground 
 REM echo ^<ESC^>[7m and nested ^<ESC^>[31m [7mbefore [31mnested [0m
 REM echo ^<ESC^>[31m and nested ^<ESC^>[7m [31mbefore [7mnested [0m
 
+setlocal
 :: Initialize local environment variables
 
 :: General
@@ -74,7 +75,7 @@ Set link[0]=https://www.rarlab.com/rar/winrar-x64-602.exe
 Set filename[0]=winrar-x64-602.exe
 Set dir[0]=%ProgramFiles%\WinRAR\
 Set bin[0]=
-Set extract[0]=winrar-x64-602.exe /S
+Set extract[0]="%downloads_path%winrar-x64-602.exe" /S
 Set app[0]=WinRAR.exe
 Set method[0]=Installing
 
@@ -84,7 +85,7 @@ Set link[1]=https://github.com/leokhoa/laragon/releases/download/5.0.0/laragon-p
 Set filename[1]=laragon-portable.zip
 Set dir[1]=C:\laragon\
 Set bin[1]=
-Set extract[1]="%dir[0]%app[0]" x -ibck %downloads_path%%filename[1]% *.* %dir[1]%
+Set extract[1]="%dir[0]%%app[0]%" x -ibck %downloads_path%%filename[1]% *.* %dir[1]%
 Set app[1]=laragon.exe
 Set method[1]=Extracting
 
@@ -94,17 +95,18 @@ Set link[2]=https://github.com/git-for-windows/git/releases/download/v2.33.0.win
 Set filename[2]=PortableGit-2.33.0.2-64-bit.7z.exe
 Set dir[2]=C:\laragon\bin\git\
 Set bin[2]=bin\
-Set extract[2]=%downloads_path%%filename[2]% -y -o C:\laragon\bin\git
+Set extract[2]="%downloads_path%%filename[2]%" -y -o C:\laragon\bin\git
 Set app[2]=git.exe
 Set method[2]=Extracting
 
 :: Config files
-Set packages_conf=%laragon_dir%usr\packages.conf
+Set packages_conf=%dir[1]%usr\packages.conf
 
 :: Begin Setup
 :: https://ss64.com/nt/for_l.html
-for %%i (0,1,2) do (
+for /L %%i in (0,1,2) do (
 	echo [36mChecking[0m !item[%%i]!
+	echo Checking !dir[%%i]!!bin[%%i]!!app[%%i]!
 	if exist !dir[%%i]!!bin[%%i]!!app[%%i]! (
 		echo [32mFound[0m !item[%%i]!
 	) else (
@@ -113,6 +115,7 @@ for %%i (0,1,2) do (
 		echo [32mDownloaded[0m !item[%%i]!
 
 		echo [33m!method[%%i]![0m !item[%%i]!
+		echo Runnning command: !extract[%%i]!
 		!extract[%%i]!
 		echo [32mInstalled[0m !item[%%i]!
 	)
@@ -120,7 +123,7 @@ for %%i (0,1,2) do (
 
 :: Git config
 echo [33mConfiguring[0m git-portable
-%dir[2]%%bin[2]%%app[2]% config --global user.name "Dale Ryan Aldover"
+!dir[2]!!bin[2]!!app[2]! config --global user.name "Dale Ryan Aldover"
 %dir[2]%%bin[2]%%app[2]% config --global user.email "bk2o1.syndicates@gmail.com"
 echo [32mGit user[0m & %dir[2]%%bin[2]%%app[2]% config --global user.name
 echo [32mGit email[0m & %dir[2]%%bin[2]%%app[2]% config --global user.email
