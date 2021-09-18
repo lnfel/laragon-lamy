@@ -99,6 +99,16 @@ Set extract[2]="%downloads_path%%filename[2]%" -y -o C:\laragon\bin\git
 Set app[2]=git.exe
 Set method[2]=Extracting
 
+:: Sublime
+::Set item[3]=sublime-portable
+::Set link[3]=https://download.sublimetext.com/sublime_text_build_4113_x64.zip
+::Set filename[3]=sublime_text_build_4113_x64.zip
+::Set dir[3]=C:\laragon\bin\sublime\
+::Set bin[3]=
+::Set extract[3]="%dir[0]%%app[0]%" x -ibck %downloads_path%%filename[3]% *.* %dir[3]%
+::Set app[3]=subl.exe
+::Set method[3]=Extracting
+
 :: Config files
 Set packages_conf=%dir[1]%usr\packages.conf
 
@@ -152,7 +162,12 @@ echo [32mConfigured[0m laragon packages
 :: https://stackoverflow.com/questions/46712814/get-current-users-path-variable-without-system-path-using-cmd::@For /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') Do @Echo %%A=%%C
 @For /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') Do Set user_path=%%C
 ::echo %user_path%
-::SETX Path %user_path%C:\laragon\bin\sublime;
+
+echo %PATH% | find /C /I "C:\laragon\bin\sublime" > nul || SETX Path %user_path%C:\laragon\bin\sublime;
 ::path C:\laragon\bin\sublime;%PATH%
+
+:: Remove last character from string
+::set test=C:\laragon\bin\sublime\
+::echo %test:~0,-1%
 
 pause
