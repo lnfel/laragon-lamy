@@ -170,4 +170,7 @@ echo %PATH% | find /C /I "C:\laragon\bin\sublime" > nul || SETX Path %user_path%
 ::set test=C:\laragon\bin\sublime\
 ::echo %test:~0,-1%
 
+:: https://newbedev.com/replace-character-of-string-in-batch-script
+:: https://stackoverflow.com/questions/60034/how-can-you-find-and-replace-text-in-a-file-using-the-windows-command-line-envir
+
 pause
