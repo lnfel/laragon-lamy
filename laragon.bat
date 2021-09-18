@@ -159,6 +159,9 @@ break>%packages_conf%
 ) > %packages_conf%
 echo [32mConfigured[0m laragon packages
 
+:: delete unecessary packages
+Rmdir /s /q C:\laragon\bin\nginx
+
 :: https://stackoverflow.com/questions/46712814/get-current-users-path-variable-without-system-path-using-cmd::@For /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') Do @Echo %%A=%%C
 @For /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') Do Set user_path=%%C
 ::echo %user_path%
