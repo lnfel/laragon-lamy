@@ -64,23 +64,26 @@ C:\laragon\bin\mysql\mysql-8.0.26-winx64\bin\mysqld.exe --initialize-insecure --
 :: General
 Set laragon_bin=C:\laragon\bin\
 Set php_exe=C:\laragon\bin\php\php-8.0.9-Win32-vs16-x64\php.exe
+Set composer_exe=C:\laragon\bin\composer\composer.bat
 
 :: Install Composer
 echo [36mInstalling[0m composer
-cd C:\laragon\bin\composer
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-php composer-setup.php --filename=%filename[0]% --install-dir=%laragon_bin%composer
-php -r "unlink('composer-setup.php');"
-echo @php "%~dp0composer" %*>C:\laragon\bin\composer\composer.bat
+%php_exe% -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+%php_exe% -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+%php_exe% composer-setup.php --filename=composer --install-dir=%laragon_bin%composer
+%php_exe% -r "unlink('composer-setup.php');"
+echo @php "C:\laragon\bin\composer\composer" %*>C:\laragon\bin\composer\composer.bat
+echo @php "C:\laragon\bin\composer\composer" global require laravel/installer %*>C:\laragon\bin\composer\laravel_install.bat
 echo [32mInstalled[0m composer
 
 :: Install Laravel globally
-composer global require laravel/installer
+echo [36mInstalling[0m laravel
+call laravel_install
+echo [32mInstalled[0m laravel
 
 :: Last manual instructions
-echo Next is do the following and we are done!
-echo Reload Apache - Laragon will generate new SAN certificate
-echo Click Menu > Apache > SSL > Add laragon.crt to Trust Store
+echo "Next is do the following and we are done!"
+echo "Reload Apache - Laragon will generate new SAN certificate"
+echo "Click Menu > Apache > SSL > Add laragon.crt to Trust Store"
 
 pause
