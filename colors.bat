@@ -55,11 +55,11 @@ echo ^<ESC^>[105m [105mMagenta [0m
 echo ^<ESC^>[106m [106mCyan [0m
 echo ^<ESC^>[107m [107mWhite [0m
 echo.
-echo [101;93m COMBINATIONS [0m
-echo ^<ESC^>[31m                     [31mred foreground color [0m
-echo ^<ESC^>[7m                       [7minverse foreground ^<-^> background [0m
-echo ^<ESC^>[7;31m                   [7;31minverse red foreground color [0m
-echo ^<ESC^>[7m and nested ^<ESC^>[31m [7mbefore [31mnested [0m
-echo ^<ESC^>[31m and nested ^<ESC^>[7m [31mbefore [7mnested [0m
+echo [101;93m COMBINATIONS [0m
+echo ^<ESC^>[31m                     [31mred foreground color[0m
+echo ^<ESC^>[7m                      [7minverse foreground ^<-^> background[0m
+echo ^<ESC^>[7;31m                   [7;31minverse red foreground color[0m
+echo ^<ESC^>[7m and nested ^<ESC^>[31m [7mbefore [31mnested[0m
+echo ^<ESC^>[31m and nested ^<ESC^>[7m [31mbefore [7mnested[0m
 
 pause
