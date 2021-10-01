@@ -126,6 +126,9 @@ for /L %%i in (0,1,1) do (
 echo %PATH% | find /C /I "C:\laragon\bin\sublime" > nul || SETX Path %user_path%C:\laragon\bin\sublime;
 echo %PATH% | find /C /I "C:\laragon\bin\php\php-8.0.9-Win32-vs16-x64" > nul || SETX Path %user_path%C:\laragon\bin\php\php-8.0.9-Win32-vs16-x64;
 echo %PATH% | find /C /I "C:\laragon\bin\composer" > nul || SETX Path %user_path%C:\laragon\bin\composer;
+:: https://laravel.com/docs/8.x/installation#the-laravel-installer
+echo %PATH% | find /C /I "C:\Users\Administrator\AppData\Roaming\Composer\vendor\bin" > nul || SETX Path %user_path%C:\Users\Administrator\AppData\Roaming\Composer\vendor\bin;
+
 ::path C:\laragon\bin\sublime;%PATH%
 
 :: Remove last character from string
