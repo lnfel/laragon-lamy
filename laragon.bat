@@ -99,13 +99,33 @@ break>%packages_conf%
 echo [32mConfigured[0m laragon packages
 
 :: delete unecessary packages
-Rmdir /s /q C:\laragon\bin\nginx
+
+:: NGINX
+Set toRemove[0]=nginx
+Set remove[0]=C:\laragon\bin\nginx\
+
+:: Composer
+Set toRemove[1]=composer
+Set remove[1]=C:\laragon\bin\composer\
+
+for /L %%i in (0,1,1) do (
+	echo [36mChecking[0m !toRemove[%%i]!
+	if exist C:\laragon\bin\nginx\ (
+		echo [91mDeleting:[0m !toRemove[%%i]!
+		Rmdir /s /q !remove[%%i]!
+		echo [32mRemoved[0m !toRemove[%%i]!
+	) else (
+		echo [36mNot Found[0m !toRemove[%%i]!
+	)
+)
 
 :: https://stackoverflow.com/questions/46712814/get-current-users-path-variable-without-system-path-using-cmd::@For /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') Do @Echo %%A=%%C
 @For /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') Do Set user_path=%%C
 ::echo %user_path%
 
 echo %PATH% | find /C /I "C:\laragon\bin\sublime" > nul || SETX Path %user_path%C:\laragon\bin\sublime;
+echo %PATH% | find /C /I "C:\laragon\bin\php\php-8.0.9-Win32-vs16-x64" > nul || SETX Path %user_path%C:\laragon\bin\php\php-8.0.9-Win32-vs16-x64;
+echo %PATH% | find /C /I "C:\laragon\bin\composer" > nul || SETX Path %user_path%C:\laragon\bin\composer;
 ::path C:\laragon\bin\sublime;%PATH%
 
 :: Remove last character from string

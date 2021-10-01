@@ -32,13 +32,17 @@ Automated setup for Laragon portable
 ### Set up MySQL
 1. Delete laragon/data/mysql-8
 2. cd to laragon/bin/mysql8.0.0.x/bin folder via cmder
-3. run `mysqld --initialize --console` (remember the password, important for step 6.)
-4. run `start mysqld`
-5. run `mysql -u root -p`
-6. put in the password from 6.
-7. You are now in mysql shell and can remove the password again: `ALTER USER 'root'@'localhost' IDENTIFIED BY '';`
-8. run `exit` and ctrl + c the spawned tab from step 4.
-to test run `mysql -u root -p` and when it asks for password just hit enter since we already removed the password on step 7.
+3. run `mysqld --initialize-insecure --console`
+
+to test run `mysql -u root -p` and when it asks for password just hit enter since we already removed the password on step 3.
+
+No need to do following steps steps since `--initialize-insecure` initializes mysql user without a password
+3. ~~run `mysqld --initialize --console` (remember the password, important for step 6.)~~
+4. ~~run `start mysqld`~~
+5. ~~run `mysql -u root -p`~~
+6. ~~put in the password from 6.~~
+7. ~~You are now in mysql shell and can remove the password again: `ALTER USER 'root'@'localhost' IDENTIFIED BY '';`~~
+8. ~~run `exit` and ctrl + c the spawned tab from step 4.~~
 
 ### Install Composer
 1. cd `C:\laragon\bin\composer`
