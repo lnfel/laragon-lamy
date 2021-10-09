@@ -111,7 +111,7 @@ Set remove[1]=C:\laragon\bin\composer\
 for /L %%i in (0,1,1) do (
 	echo [36mChecking[0m !toRemove[%%i]!
 	if exist C:\laragon\bin\nginx\ (
-		echo [91mDeleting:[0m !toRemove[%%i]!
+		echo [91mDeleting[0m !toRemove[%%i]!
 		Rmdir /s /q !remove[%%i]!
 		echo [32mRemoved[0m !toRemove[%%i]!
 	) else (
@@ -119,15 +119,29 @@ for /L %%i in (0,1,1) do (
 	)
 )
 
-:: https://stackoverflow.com/questions/46712814/get-current-users-path-variable-without-system-path-using-cmd::@For /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') Do @Echo %%A=%%C
-@For /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') Do Set user_path=%%C
+:: https://stackoverflow.com/questions/46712814/get-current-users-path-variable-without-system-path-using-cmd
+::@For /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') Do @Echo %%A=%%C
+::@For /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') Do Set user_path=%%C
 ::echo %user_path%
 
-echo %PATH% | find /C /I "C:\laragon\bin\sublime" > nul || SETX Path %user_path%C:\laragon\bin\sublime;
-echo %PATH% | find /C /I "C:\laragon\bin\php\php-8.0.9-Win32-vs16-x64" > nul || SETX Path %user_path%C:\laragon\bin\php\php-8.0.9-Win32-vs16-x64;
-echo %PATH% | find /C /I "C:\laragon\bin\composer" > nul || SETX Path %user_path%C:\laragon\bin\composer;
-:: https://laravel.com/docs/8.x/installation#the-laravel-installer
-echo %PATH% | find /C /I "C:\Users\Administrator\AppData\Roaming\Composer\vendor\bin" > nul || SETX Path %user_path%C:\Users\Administrator\AppData\Roaming\Composer\vendor\bin;
+::echo %PATH% | find /C /I "C:\laragon\bin\sublime" > nul || SETX Path %user_path%C:\laragon\bin\sublime;
+
+:: Directory array
+Set directory[0]=C:\laragon\bin\sublime
+Set directory[1]=C:\laragon\bin\php\php-8.0.9-Win32-vs16-x64
+Set directory[2]=C:\laragon\bin\composer
+Set directory[3]=C:\Users\Administrator\AppData\Roaming\Composer\vendor\bin
+
+Set user_path=
+
+for /L %%i in (0,1,3) do (
+	echo [36mChecking[0m !directory[%%i]!
+	for /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') do (
+		Set user_path=%%C
+		echo !user_path!
+		echo !PATH! | find /C /I "!directory[%%i]!" > nul || SETX Path !user_path!!directory[%%i]!;
+	)
+)
 
 ::path C:\laragon\bin\sublime;%PATH%
 
