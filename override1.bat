@@ -70,10 +70,11 @@ Set composer_exe=C:\laragon\bin\composer\composer.bat
 echo [36mInstalling[0m composer
 %php_exe% -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 %php_exe% -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-%php_exe% composer-setup.php --filename=composer --install-dir=%laragon_bin%composer
+%php_exe% composer-setup.php --install-dir=%laragon_bin%composer
 %php_exe% -r "unlink('composer-setup.php');"
-echo @php "C:\laragon\bin\composer\composer" %*>C:\laragon\bin\composer\composer.bat
-echo @php "C:\laragon\bin\composer\composer" global require laravel/installer %*>C:\laragon\bin\composer\laravel_install.bat
+:: https://stackoverflow.com/questions/47497240/how-to-write-dp0-into-a-batch-file-created-by-a-batch-file
+echo @php "%%~dp0composer.phar" %* > C:\laragon\bin\composer\composer.bat
+echo @php "%%~dp0composer.phar" global require laravel/installer %* > C:\laragon\bin\composer\laravel_install.bat
 echo [32mInstalled[0m composer
 
 :: Install Laravel globally
