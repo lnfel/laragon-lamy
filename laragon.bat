@@ -132,8 +132,6 @@ Set directory[1]=C:\laragon\bin\php\php-8.0.9-Win32-vs16-x64
 Set directory[2]=C:\laragon\bin\composer
 Set directory[3]=C:\Users\Administrator\AppData\Roaming\Composer\vendor\bin
 
-Set user_path=
-
 for /L %%i in (0,1,3) do (
 	echo [36mChecking[0m !directory[%%i]!
 	for /F "Skip=2Tokens=1-2*" %%A In ('Reg Query HKCU\Environment /V PATH 2^>Nul') do (
