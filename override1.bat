@@ -82,11 +82,16 @@ echo [36mInstalling[0m laravel
 call laravel_install
 echo [32mInstalled[0m laravel
 
+:: Configure Cmder mini
+rename C:\laragon\bin\cmder.bak cmder.baks
+rename C:\laragon\bin\cmder_mini cmder
+
 :: Last manual instructions
 echo "Next is do the following and we are done!"
 echo "Reload Apache - Laragon will generate new SAN certificate"
 echo "Click Menu > Apache > SSL > Add laragon.crt to Trust Store"
-
-:: Configure Cmder mini
+echo "Configure init.bat"
+echo "Copy text from cmder.txt and paste it C:\laragon\bin\cmder\vendor\init.bat after the lines:"
+echo %%print_debug%% init.bat "Env Var - HOME=%%HOME%%"
 
 pause
