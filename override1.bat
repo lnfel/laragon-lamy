@@ -87,4 +87,6 @@ echo "Next is do the following and we are done!"
 echo "Reload Apache - Laragon will generate new SAN certificate"
 echo "Click Menu > Apache > SSL > Add laragon.crt to Trust Store"
 
+:: Configure Cmder mini
+
 pause
