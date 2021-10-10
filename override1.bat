@@ -83,8 +83,8 @@ call laravel_install
 echo [32mInstalled[0m laravel
 
 :: Configure Cmder mini
-rename C:\laragon\bin\cmder.bak cmder.baks
-rename C:\laragon\bin\cmder_mini cmder
+rename C:\laragon\bin\cmder cmder.bak
+rename C:\laragon\bin\cmdermini cmder
 copy /Y %~dp0init.bat "C:\laragon\bin\cmder\vendor\init.bat"
 
 :: Last manual instructions
