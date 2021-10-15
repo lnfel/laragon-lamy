@@ -6,7 +6,16 @@ setlocal
 :: Initialize local environment variables
 
 :: General
-Set downloads_path=C:\Users\Administrator\Downloads\
+Set downloads_path=%USERPROFILE%\Downloads\
+Set /p downloads_path="Downloads directory [default %USERPROFILE%\Downloads\]: "
+call :checkDownloadsPath
+pause
+
+:checkDownloadsPath
+if not exist %downloads_path% (
+	echo %downloads_path% folder cannot be found.
+	exit /b 1
+)
 
 :: Winrar
 Set item[0]=winrar
