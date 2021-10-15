@@ -12,8 +12,8 @@ Automated setup for Laragon portable **without dependencies**.
 ## TO DO
 Everything is hard coded at the moment, and assumes the user is gonna use the default setup.
 
-- [ ] Allow user to specify where to dump winrar, laragon portable and git portable, currently using C:\Users\Administrator\Downloads
-- [ ] Allow user to specify a custom packages conf file to use, currently uses the hard coded packages_conf block
+- [x] Allow user to specify where to dump winrar, laragon portable and git portable, currently using C:\Users\Administrator\Downloads
+- [x] Allow user to specify a custom packages conf file to use, currently uses the hard coded packages_conf block
 - [ ] Allow user to opt in using nginx instead of deleting it by default
 - [ ] Allow user to opt in for other text editor instead of assuming they would use sublime text
 - [ ] Separate the command for setting up cmder mini
