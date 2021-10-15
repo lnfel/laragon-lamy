@@ -110,9 +110,31 @@ Set remove[0]=C:\laragon\bin\nginx\
 Set toRemove[1]=composer
 Set remove[1]=C:\laragon\bin\composer\
 
+:: Prompt to delete nginx
+Set remove_nginx=Y
+Set /p remove_nginx="Remove NGINX (Y/N)? [default Y]: "
+
+if /i %remove_nginx% EQU N (
+	call :keepNginx
+) else (
+	call :deleteDefault
+)
+
+if /i %remove_nginx% EQU NO (
+	call :keepNginx
+) else (
+	call :deleteDefault
+)
+
+:: User opted to not delete nginx
+:keepNginx
+Set remove[0]=
+
+:deleteDefault
+
 for /L %%i in (0,1,1) do (
 	echo [36mChecking[0m !toRemove[%%i]!
-	if exist C:\laragon\bin\nginx\ (
+	if exist !remove[%%i]! (
 		echo [91mDeleting[0m !toRemove[%%i]!
 		Rmdir /s /q !remove[%%i]!
 		echo [32mRemoved[0m !toRemove[%%i]!
