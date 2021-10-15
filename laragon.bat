@@ -57,8 +57,22 @@ Set method[2]=Extracting
 ::Set app[3]=subl.exe
 ::Set method[3]=Extracting
 
-:: Config files
+:: Laragon packages conf
 Set packages_conf=%dir[1]%usr\packages.conf
+Set packages_conf_default=%~dp0packages.conf
+Set /p packages_conf_default="Path to packages.conf [default %~dp0packages.conf]: "
+call :checkPackagesConf
+pause
+
+:checkPackagesConf
+if not exist %packages_conf_default% (
+	echo %packages_conf_default% does not exist.
+	exit /b 1
+)
+
+echo [33mConfiguring[0m laragon packages
+copy /Y %packages_conf_default% "%packages_conf%"
+echo [32mConfigured[0m laragon packages
 
 :: Begin Setup
 :: https://ss64.com/nt/for_l.html
@@ -85,27 +99,6 @@ echo [33mConfiguring[0m git-portable
 %dir[2]%%bin[2]%%app[2]% config --global user.email "bk2o1.syndicates@gmail.com"
 echo [32mGit user[0m & %dir[2]%%bin[2]%%app[2]% config --global user.name
 echo [32mGit email[0m & %dir[2]%%bin[2]%%app[2]% config --global user.email
-
-:: Laragon packages conf
-echo [33mConfiguring[0m laragon packages
-break>%packages_conf%
-(
-	echo # PHP
-	echo php-8.0.9=https://windows.php.net/downloads/releases/archives/php-8.0.9-Win32-vs16-x64.zip
-	echo # Apache
-	echo apache-2.4.48=https://www.apachehaus.com/downloads/httpd-2.4.48-o111k-x64-vs16.zip
-	echo # phpMyAdmin
-	echo phpmyadmin-5.1.1=https://files.phpmyadmin.net/phpMyAdmin/5.1.1/phpMyAdmin-5.1.1-english.zip
-	echo # MySQL
-	echo mysql-8.0.26=https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.26-winx64.zip
-	echo # Node.js
-	echo nodejs-14.17.5=https://nodejs.org/dist/v14.17.5/node-v14.17.5-win-x64.zip
-	echo # Sublime
-	echo sublime-4113=https://download.sublimetext.com/sublime_text_build_4113_x64.zip
-	echo # Cmder
-	echo cmder_mini-1.3.18=https://github.com/cmderdev/cmder/releases/download/v1.3.18/cmder_mini.zip
-) > %packages_conf%
-echo [32mConfigured[0m laragon packages
 
 :: delete unecessary packages
 
