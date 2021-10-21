@@ -79,8 +79,8 @@ echo [36mInstalling[0m composer
 %php_exe% composer-setup.php --install-dir=%laragon_bin%composer
 %php_exe% -r "unlink('composer-setup.php');"
 :: https://stackoverflow.com/questions/47497240/how-to-write-dp0-into-a-batch-file-created-by-a-batch-file
-echo @php "%%~dp0composer.phar" %* > C:\laragon\bin\composer\composer.bat
-echo @php "%%~dp0composer.phar" global require laravel/installer %* > C:\laragon\bin\composer\laravel_install.bat
+echo @php "%%~dp0composer.phar" %%* > C:\laragon\bin\composer\composer.bat
+echo @php "%%~dp0composer.phar" global require laravel/installer > C:\laragon\bin\composer\laravel_install.bat
 echo [32mInstalled[0m composer
 
 :: Install Laravel globally
