@@ -8,12 +8,10 @@ setlocal
 :: General
 Set downloads_path=%USERPROFILE%\Downloads\
 Set /p downloads_path="Downloads directory [default %USERPROFILE%\Downloads\]: "
-call :checkDownloadsPath
-pause
 
-:checkDownloadsPath
+:: Check downloads_path
 if not exist %downloads_path% (
-	echo %downloads_path% folder cannot be found.
+	echo %downloads_path% folder does not exist.
 	exit /b 1
 )
 
@@ -47,33 +45,6 @@ Set extract[2]="%downloads_path%%filename[2]%" -y -o C:\laragon\bin\git
 Set app[2]=git.exe
 Set method[2]=Extracting
 
-:: Sublime
-::Set item[3]=sublime-portable
-::Set link[3]=https://download.sublimetext.com/sublime_text_build_4113_x64.zip
-::Set filename[3]=sublime_text_build_4113_x64.zip
-::Set dir[3]=C:\laragon\bin\sublime\
-::Set bin[3]=
-::Set extract[3]="%dir[0]%%app[0]%" x -ibck %downloads_path%%filename[3]% *.* %dir[3]%
-::Set app[3]=subl.exe
-::Set method[3]=Extracting
-
-:: Laragon packages conf
-Set packages_conf=%dir[1]%usr\packages.conf
-Set packages_conf_default=%~dp0packages.conf
-Set /p packages_conf_default="Path to packages.conf [default %~dp0packages.conf]: "
-call :checkPackagesConf
-pause
-
-:checkPackagesConf
-if not exist %packages_conf_default% (
-	echo %packages_conf_default% does not exist.
-	exit /b 1
-)
-
-echo [33mConfiguring[0m laragon packages
-copy /Y %packages_conf_default% "%packages_conf%"
-echo [32mConfigured[0m laragon packages
-
 :: Begin Setup
 :: https://ss64.com/nt/for_l.html
 for /L %%i in (0,1,2) do (
@@ -93,6 +64,21 @@ for /L %%i in (0,1,2) do (
 	)
 )
 
+:: Laragon packages conf
+Set packages_conf=%dir[1]%usr\packages.conf
+Set packages_conf_default=%~dp0packages.conf
+Set /p packages_conf_default="Path to packages.conf [default %~dp0packages.conf]: "
+
+:: Check packages_conf
+if not exist %packages_conf_default% (
+	echo %packages_conf_default% does not exist.
+	exit /b 1
+)
+
+echo [33mConfiguring[0m laragon packages
+copy /Y %packages_conf_default% "%packages_conf%"
+echo [32mConfigured[0m laragon packages
+
 :: Git config
 echo [33mConfiguring[0m git-portable
 !dir[2]!!bin[2]!!app[2]! config --global user.name "Dale Ryan Aldover"
@@ -100,30 +86,25 @@ echo [33mConfiguring[0m git-portable
 echo [32mGit user[0m & %dir[2]%%bin[2]%%app[2]% config --global user.name
 echo [32mGit email[0m & %dir[2]%%bin[2]%%app[2]% config --global user.email
 
-:: delete unecessary packages
+:: Delete unecessary packages
 
 :: NGINX
 Set toRemove[0]=nginx
 Set remove[0]=C:\laragon\bin\nginx\
+Set command[0]=Rmdir /s /q %remove[0]%
 
 :: Composer
 Set toRemove[1]=composer
 Set remove[1]=C:\laragon\bin\composer\
+Set command[1]=del /F /S /Q %remove[1]%*.*
 
 :: Prompt to delete nginx
-Set remove_nginx=Y
-Set /p remove_nginx="Remove NGINX (Y/N)? [default Y]: "
-
-if /i %remove_nginx% EQU N (
-	call :keepNginx
+:: https://ss64.com/nt/choice.html
+choice /C YN /N /T 60 /D Y /M "Remove NGINX? [default Y]: "
+if %ERRORLEVEL% EQU 2 (
+	goto :keepNginx
 ) else (
-	call :deleteDefault
-)
-
-if /i %remove_nginx% EQU NO (
-	call :keepNginx
-) else (
-	call :deleteDefault
+	goto :deleteDefault
 )
 
 :: User opted to not delete nginx
@@ -136,10 +117,14 @@ for /L %%i in (0,1,1) do (
 	echo [36mChecking[0m !toRemove[%%i]!
 	if exist !remove[%%i]! (
 		echo [91mDeleting[0m !toRemove[%%i]!
-		Rmdir /s /q !remove[%%i]!
+		!command[%%i]!
 		echo [32mRemoved[0m !toRemove[%%i]!
 	) else (
-		echo [36mNot Found[0m !toRemove[%%i]!
+		if [!remove[%%i]!] EQU [] (
+			echo [36mSkipped[0m !toRemove[%%i]!
+		) else (
+			echo [36mNot Found[0m !toRemove[%%i]!
+		)
 	)
 )
 
