@@ -6,7 +6,7 @@ Automated setup for Laragon portable **without dependencies**.
 2. Run `laragon.bat`
 3. Open the installed laragon.exe in C:\laragon
 4. Install the preconfigured packages via laragon menu, **Right click > Tools > Quick Add > All**
-5. Run `override1.bat` for final setup
+5. Run `settings.bat` for final setup
 6. Finally using laragon menu, **Click Menu > Apache > SSL > Add laragon.crt to Trust Store**
 
 ## TO DO
@@ -14,9 +14,9 @@ Everything is hard coded at the moment, and assumes the user is gonna use the de
 
 - [x] Allow user to specify where to dump winrar, laragon portable and git portable, currently using C:\Users\Administrator\Downloads
 - [x] Allow user to specify a custom packages conf file to use, currently uses the hard coded packages_conf block
-- [ ] Allow user to opt in using nginx instead of deleting it by default
-- [ ] Allow user to opt in for other text editor instead of assuming they would use sublime text
-- [ ] Separate the command for setting up cmder mini
+- [x] Allow user to opt in using nginx instead of deleting it by default
+- [x] (When user uses custom packages.conf sublime won't be installed) Allow user to opt in for other text editor instead of assuming they would use sublime text
+- [x] Ask if user would like to use cmder_mini
 - [ ] Test setting up Rails on Laragon
 
 ## Defaults
