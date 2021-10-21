@@ -116,4 +116,6 @@ Set remove[1]=C:\laragon\bin\composer\
 :: test if /p pauses by itself, seems no need to explicitly pause when using /p
 ::Set /p downloads_path="Downloads directory [default %USERPROFILE%\Downloads\]: "
 ::echo Error Level: %ERRORLEVEL%
+
+powershell -c "Start-Process -FilePath 'C:\Users\Administrator\Downloads\rubyinstaller-devkit-3.0.2-1-x64.exe' -ArgumentList '/silent /tasks=assocfiles,modpath' -PassThru -Wait"
 pause
