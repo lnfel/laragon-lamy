@@ -78,27 +78,42 @@ Set toRemove[1]=composer
 Set remove[1]=C:\laragon\bin\composer\
 
 :: Prompt to delete nginx
-Set remove_nginx=Y
-Set /p remove_nginx="Remove NGINX (Y/N)? [default Y]: "
+::Set remove_nginx=Y
+::Set /p remove_nginx="Remove NGINX (Y/N)? [default Y]: "
 
-if /i %remove_nginx% EQU N (
-	call :keepNginx
-) else (
-	call :deleteDefault
-)
+::if /i %remove_nginx% EQU N (
+::	call :keepNginx
+::) else (
+::	call :deleteDefault
+::)
 
-if /i %remove_nginx% EQU NO (
-	call :keepNginx
-) else (
-	call :deleteDefault
-)
-pause
+::if /i %remove_nginx% EQU NO (
+::	call :keepNginx
+::) else (
+::	call :deleteDefault
+::)
+::pause
+
+:: this is good now
+::choice /C YN /N /T 60 /D Y /M "Remove NGINX? [default Y]: "
+::if %ERRORLEVEL% EQU 2 (
+::	goto :keepNginx
+::) else (
+::	goto :deleteDefault
+::)
 
 :: User opted to not delete nginx
 :keepNginx
-Set remove[0]=Nginx safe
+::Set remove[0]=Nginx safe
 
-echo %remove[0]%
+::echo %remove[0]%
 
 :deleteDefault
-echo Running delete operation
+::echo Running delete operation
+
+::echo Error Level: %ERRORLEVEL%
+
+:: test if /p pauses by itself, seems no need to explicitly pause when using /p
+::Set /p downloads_path="Downloads directory [default %USERPROFILE%\Downloads\]: "
+::echo Error Level: %ERRORLEVEL%
+pause
