@@ -81,8 +81,21 @@ echo [32mConfigured[0m laragon packages
 
 :: Git config
 echo [33mConfiguring[0m git-portable
-!dir[2]!!bin[2]!!app[2]! config --global user.name "Dale Ryan Aldover"
-%dir[2]%%bin[2]%%app[2]% config --global user.email "bk2o1.syndicates@gmail.com"
+
+Set /p git_username="Provide username for git [Press enter to skip this process]: "
+
+if ["%git_username%"] NEQ [""] (
+	%dir[2]%%bin[2]%%app[2]% config --global user.name "%git_username%"
+)
+
+Set /p git_useremail="Provide user email for git [Press enter to skip this process]: "
+
+if ["%git_useremail%"] NEQ [""] (
+	%dir[2]%%bin[2]%%app[2]% config --global user.email "%git_useremail%"
+)
+
+::!dir[2]!!bin[2]!!app[2]! config --global user.name "Dale Ryan Aldover"
+::!dir[2]!!bin[2]!!app[2]! config --global user.email "bk2o1.syndicates@gmail.com"
 echo [32mGit user[0m & %dir[2]%%bin[2]%%app[2]% config --global user.name
 echo [32mGit email[0m & %dir[2]%%bin[2]%%app[2]% config --global user.email
 

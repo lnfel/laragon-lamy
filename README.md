@@ -17,7 +17,8 @@ Everything is hard coded at the moment, and assumes the user is gonna use the de
 - [x] Allow user to opt in using nginx instead of deleting it by default
 - [x] (When user uses custom packages.conf sublime won't be installed) Allow user to opt in for other text editor instead of assuming they would use sublime text
 - [x] Ask if user would like to use cmder_mini
-- [ ] Test setting up Rails on Laragon
+- [ ] Test setting up Rails on Laragon (this was difficult than expected, no wonder laragon had a separate repo for rails setup)
+- [x] Prompt user to setup git username and email
 
 ## Defaults
 - PHP 8.0.9

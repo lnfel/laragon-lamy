@@ -117,5 +117,29 @@ Set remove[1]=C:\laragon\bin\composer\
 ::Set /p downloads_path="Downloads directory [default %USERPROFILE%\Downloads\]: "
 ::echo Error Level: %ERRORLEVEL%
 
-powershell -c "Start-Process -FilePath 'C:\Users\Administrator\Downloads\rubyinstaller-devkit-3.0.2-1-x64.exe' -ArgumentList '/silent /tasks=assocfiles,modpath' -PassThru -Wait"
+:: install ruby with params silently
+:: powershell -c "Start-Process -FilePath 'C:\Users\Administrator\Downloads\rubyinstaller-devkit-3.0.2-1-x64.exe' -ArgumentList '/silent /tasks=assocfiles,modpath' -PassThru -Wait"
+
+
+:: Git
+Set item[2]=git-portable
+Set link[2]=https://github.com/git-for-windows/git/releases/download/v2.33.0.windows.2/PortableGit-2.33.0.2-64-bit.7z.exe
+Set filename[2]=PortableGit-2.33.0.2-64-bit.7z.exe
+Set dir[2]=C:\laragon\bin\git\
+Set bin[2]=bin\
+Set extract[2]="%downloads_path%%filename[2]%" -y -o C:\laragon\bin\git
+Set app[2]=git.exe
+Set method[2]=Extracting
+
+Set /p git_username="Provide username for git [Press enter to skip this process]: "
+
+if ["%git_username%"] NEQ [""] (
+	echo %dir[2]%%bin[2]%%app[2]% config --global user.name "%git_username%"
+)
+
+Set /p git_useremail="Provide user email for git [Press enter to skip this process]: "
+
+if ["%git_useremail%"] NEQ [""] (
+	echo %dir[2]%%bin[2]%%app[2]% config --global user.email "%git_useremail%"
+)
 pause
