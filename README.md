@@ -6,8 +6,9 @@ Automated setup for Laragon portable **without dependencies**.
 2. Run `laragon.bat`
 3. Open the installed laragon.exe in C:\laragon
 4. Install the preconfigured packages via laragon menu, **Right click > Tools > Quick Add > All**
-5. Run `settings.bat` for final setup
-6. Finally using laragon menu, **Click Menu > Apache > SSL > Add laragon.crt to Trust Store**
+5. Using laragon menu, **Click Menu > Apache > SSL > Enabled**
+6. Using laragon menu, **Click Menu > Apache > SSL > Add laragon.crt to Trust Store**
+7. Finally run `settings.bat` for final setup
 
 ## TO DO
 Everything is hard coded at the moment, and assumes the user is gonna use the default setup.
