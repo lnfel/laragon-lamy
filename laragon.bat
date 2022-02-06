@@ -154,8 +154,10 @@ Set directory[1]=C:\laragon\bin\php\php-8.0.9-Win32-vs16-x64
 Set directory[2]=C:\laragon\bin\composer
 Set directory[3]=C:\Users\Administrator\AppData\Roaming\Composer\vendor\bin
 Set directory[4]=C:\laragon\bin\git\bin
+Set directory[5]=C:\laragon\bin\apache\httpd-2.4.48-o111k-x64-vs16\bin
+Set directory[6]=C:\laragon\bin\mysql\mysql-8.0.26-winx64\bin
 
-for /L %%i in (0,1,4) do (
+for /L %%i in (0,1,6) do (
 	echo [36mChecking[0m !directory[%%i]!
 	for /F "Skip=2Tokens=1-2*" %%A in ('Reg Query HKCU\Environment /V PATH 2^>Nul') do (
 		Set user_path=%%C
