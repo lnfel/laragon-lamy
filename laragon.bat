@@ -10,7 +10,7 @@ Set downloads_path=%USERPROFILE%\Downloads\
 Set /p downloads_path="Downloads directory [default %USERPROFILE%\Downloads\]: "
 
 :: Check downloads_path
-if not exist %downloads_path% (
+if not exist "%downloads_path%" (
 	echo %downloads_path% folder does not exist.
 	exit /b 1
 )
@@ -31,7 +31,7 @@ Set link[1]=https://github.com/leokhoa/laragon/releases/download/5.0.0/laragon-p
 Set filename[1]=laragon-portable.zip
 Set dir[1]=C:\laragon\
 Set bin[1]=
-Set extract[1]="%dir[0]%%app[0]%" x -ibck %downloads_path%%filename[1]% *.* %dir[1]%
+Set extract[1]="%dir[0]%%app[0]%" x -ibck "%downloads_path%%filename[1]%" *.* %dir[1]%
 Set app[1]=laragon.exe
 Set method[1]=Extracting
 
@@ -160,7 +160,7 @@ for /L %%i in (0,1,4) do (
 	for /F "Skip=2Tokens=1-2*" %%A in ('Reg Query HKCU\Environment /V PATH 2^>Nul') do (
 		Set user_path=%%C
 		echo !user_path!
-		echo !PATH! | find /C /I "!directory[%%i]!" > nul || SETX Path !user_path!!directory[%%i]!;
+		echo !PATH! | find /C /I "!directory[%%i]!" > nul || SETX Path "!user_path!!directory[%%i]!;"
 	)
 )
 
